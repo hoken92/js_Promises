@@ -69,7 +69,7 @@ function getUserData(id) {
       console.log(error);
     }
   }
-
+  // Runs the async function
   getData(id);
 }
 
