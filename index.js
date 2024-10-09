@@ -73,4 +73,11 @@ function getUserData(id) {
   getData(id);
 }
 
+// In range id number
 getUserData(9);
+
+// Out of range id number
+getUserData(25);
+
+// Trying a string
+getUserData("John");
