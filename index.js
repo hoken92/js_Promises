@@ -9,22 +9,38 @@ function getUserData(id) {
   };
 
   try {
+    // Creating the return object
     let userData = {};
-    const dbInfo = central(id).then((db) => {
+
+    // Finds which db the id belongs to
+    central(id).then((db) => {
       userData.id = id;
-      const getDBData = dbs[db](id).then((info) => {
-        userData.username = info.username;
-        userData.website = info.website;
-        userData.company = info.company;
+      // Runs the db method from the dbs object from the promise central async function value
+      dbs[db](id).then((info) => {
+        // For in loop to iterate thru objects and inserts into userData object
+        for (const item in info) {
+          userData[item] = info[item];
+        }
+
+        // userData.username = info.username;
+        // userData.website = info.website;
+        // userData.company = info.company;
       });
-      const getVaultData = vault(id).then((info) => {
-        userData.name = info.name;
-        userData.email = info.email;
-        userData.address = info.address;
-        userData.phone = info.phone;
+
+      // Runs the vault function w/ the provided id
+      vault(id).then((info) => {
+        // For in loop to iterate thru objects and inserts into userData object
+        for (const item in info) {
+          userData[item] = info[item];
+        }
+        // userData.name = info.name;
+        // userData.email = info.email;
+        // userData.address = info.address;
+        // userData.phone = info.phone;
         console.log(userData);
       });
     });
+    // Catches any errors that happen above
   } catch (err) {
     console.log(err);
   }
